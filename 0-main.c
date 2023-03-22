@@ -1,32 +1,41 @@
-#include "main.h"
 #include <stdio.h>
+#include "function_pointers.h"
 
 /**
- * simple_print_buffer - prints buffer in hexa
- * @buffer: the address of memory to print
- * @size: the size of the memory to print
+ * print_name_as_is - prints a name as is
+ * @name: name of the person
  *
  * Return: Nothing.
  */
-void simple_print_buffer(char *buffer, unsigned int size)
+void print_name_as_is(char *name)
 {
-        unsigned int i;
+    printf("Hello, my name is %s\n", name);
+}
 
-        i = 0;
-        while (i < size)
+/**
+ * print_name_uppercase - print a name in uppercase
+ * @name: name of the person
+ *
+ * Return: Nothing.
+ */
+void print_name_uppercase(char *name)
+{
+    unsigned int i;
+
+    printf("Hello, my uppercase name is ");
+    i = 0;
+    while (name[i])
+    {
+        if (name[i] >= 'a' && name[i] <= 'z')
         {
-                if (i % 10)
-                {
-                        printf(" ");
-                }
-                if (!(i % 10) && i)
-                {
-                        printf("\n");
-                }
-                printf("0x%02x", buffer[i]);
-                i++;
+            putchar(name[i] + 'A' - 'a');
         }
-        printf("\n");
+        else
+        {
+            putchar(name[i]);
+        }
+        i++;
+    }
 }
 
 /**
@@ -36,11 +45,8 @@ void simple_print_buffer(char *buffer, unsigned int size)
  */
 int main(void)
 {
-    char buffer[98] = {0x00};
-
-    simple_print_buffer(buffer, 98);
-    _memset(buffer, 0x01, 95);
-    printf("-------------------------------------------------\n");
-    simple_print_buffer(buffer, 98);    
+    print_name("Bob", print_name_as_is);
+    print_name("Bob Dylan", print_name_uppercase);
+    printf("\n");
     return (0);
 }
